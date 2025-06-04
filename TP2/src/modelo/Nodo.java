@@ -1,15 +1,15 @@
 package modelo;
 
 import interfaces.INodo;
-import modelo.Persona;
+import interfaces.IPersona;
 
 public class Nodo implements INodo{
 	
-	private Persona dato;
+	private IPersona dato;
 	private INodo izquierdo;
 	private INodo derecho;
 
-	public Nodo(Persona dato) {
+	public Nodo(IPersona dato) {
 		super();
 		this.dato = dato;
 		this.izquierdo = null;
@@ -17,12 +17,12 @@ public class Nodo implements INodo{
 	}
 
 	@Override
-	public Persona getDato() {
+	public IPersona getDato() {
 		return dato;
 	}
 
 	@Override
-	public void setDato(Persona dato) {
+	public void setDato(IPersona dato) {
 		this.dato = dato;
 	}
 

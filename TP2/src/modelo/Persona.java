@@ -1,6 +1,7 @@
 package modelo;
+import interfaces.IPersona;
 
-public class Persona {
+public class Persona implements IPersona {
 	
 	private int dni;
 	private String nombre;

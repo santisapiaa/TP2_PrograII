@@ -1,8 +1,7 @@
 package modelo;
-
 import interfaces.IArbol;
 import interfaces.INodo;
-import modelo.Persona;
+import interfaces.IPersona;
 
 public class Arbol implements IArbol{
 	
@@ -14,11 +13,11 @@ public class Arbol implements IArbol{
 	}
 
 	@Override
-	public void insertar(Persona dato) {
+	public void insertar(IPersona dato) {
 		raiz = insertarRec(raiz, dato);
 	}
 	
-	private INodo insertarRec(INodo nodoRaiz, Persona dato) {
+	private INodo insertarRec(INodo nodoRaiz, IPersona dato) {
        if (nodoRaiz == null) {
     	   return new Nodo(dato);
        }
@@ -34,20 +33,27 @@ public class Arbol implements IArbol{
 
 	@Override
 	public INodo buscar(int dato) {
-		return buscarRec(raiz, dato);
+		INodo encontrado;
+		encontrado = buscarRec(raiz, dato);
+		System.out.println(encontrado != null ? "DNI encontrado: " + encontrado.getDato(): "El DNI " + dato + " no fue encontrado");
+		return encontrado;
 	}
 	
 	private INodo buscarRec(INodo nodo, int dato) {
 		if (nodo == null || nodo.getDato().getDni() == dato) {
+
 			return nodo;
 		}
 		if (dato < nodo.getDato().getDni()) {
+
 			return buscarRec(nodo.getIzquierdo(), dato);
 		} else {
+
 			return buscarRec(nodo.getDerecho(), dato);
 		}
 		
 	}
+	
 	
 	@Override
 	public void eliminar(int dato) {

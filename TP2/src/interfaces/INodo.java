@@ -1,10 +1,8 @@
 package interfaces;
 
-import modelo.Persona;
-
 public interface INodo {
-	Persona getDato();
-	void setDato(Persona dato);
+	IPersona getDato();
+	void setDato(IPersona dato);
 	
 	INodo getIzquierdo();
 	void setIzquierdo(INodo izquierdo);

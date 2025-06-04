@@ -11,23 +11,24 @@ import interfaces.INodo;
 public class TestArbol {
 	public static void main(String[] args) {
 		IArbol arbol = new Arbol();
-		INodo encontrado;
 		
-		Persona p1 = new Persona(1,"jorge");
-		Persona p2 = new Persona(6,"jorge");
-		Persona p3 = new Persona(2,"jorge");
-		Persona p4 = new Persona(9,"jorge");
-		Persona p5 = new Persona(15,"jorge");
-		Persona p6 = new Persona(8,"jorge");
-		Persona p7 = new Persona(21,"jorge");
-		Persona p8 = new Persona(18,"jorge");
-		Persona p9 = new Persona(31,"jorge");
-		Persona p10 = new Persona(7,"jorge");
-		Persona p11 = new Persona(19,"jorge");
-		Persona p12 = new Persona(26,"jorge");
-		Persona p13 = new Persona(20,"jorge");
-		Persona p14 = new Persona(35,"jorge");
-		Persona p15 = new Persona(17,"jorge");
+		IPersona p1 = new Persona(1,"JORGE");
+		IPersona p2 = new Persona(6,"Alejo");
+		IPersona p3 = new Persona(2,"Santiago");
+		IPersona p4 = new Persona(9,"Palermo");
+		IPersona p5 = new Persona(15,"Bouzat");
+		IPersona p6 = new Persona(8,"Elias Gomez");
+		IPersona p7 = new Persona(21,"Montoro");
+		IPersona p8 = new Persona(18,"Maher");
+		IPersona p9 = new Persona(31,"Bianchi");
+		IPersona p10 = new Persona(7,"Mammana");
+		IPersona p11 = new Persona(19,"Tevez");
+		IPersona p12 = new Persona(26,"Centurion");
+		IPersona p13 = new Persona(20,"Benedetto");
+		IPersona p14 = new Persona(35,"Roman");
+		IPersona p15 = new Persona(17,"AlmiGOD");
+		IPersona p16 = new Persona(42,"Zarate");
+
 
 		
 		arbol.insertar(p6);
@@ -45,6 +46,7 @@ public class TestArbol {
 		arbol.insertar(p13);
 		arbol.insertar(p10);
 		arbol.insertar(p2);
+		arbol.insertar(p16);
 		
 		System.out.println("Recorrido In Order");
 		arbol.recorridoInorder();
@@ -56,15 +58,13 @@ public class TestArbol {
 		arbol.recorridoPreorder();
 		
 		System.out.println("\n\nBuscar X");
-		encontrado = arbol.buscar(0);
-		System.out.println(encontrado != null ? " Encontrado: " + encontrado.getDato(): "No encontrado");
+		arbol.buscar(20);
+		
 		
 		System.out.println("\n\nEliminar X");
-		encontrado = arbol.buscar(1);
-		System.out.println(encontrado != null ? " Encontrado: " + encontrado.getDato(): "No encontrado");
+		arbol.buscar(1);
 		arbol.eliminar(1);
-		encontrado = arbol.buscar(1);
-		System.out.println(encontrado != null ? " Encontrado: " + encontrado.getDato(): "No encontrado");
+		arbol.buscar(1);
 
 		
 		
