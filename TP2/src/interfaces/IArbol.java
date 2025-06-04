@@ -10,6 +10,6 @@ public interface IArbol {
 	void recorridoPreorder();
 	void recorridoPostorder();
 	    
-	public void eliminar(Persona dato);
+	public void eliminar(int dato);
 
 }

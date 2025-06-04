@@ -8,7 +8,7 @@ public class Arbol implements IArbol{
 	
 	private INodo raiz;
 
-	public Arbol(INodo raiz) {
+	public Arbol() {
 		super();
 		this.raiz = raiz;
 	}
@@ -50,16 +50,16 @@ public class Arbol implements IArbol{
 	}
 	
 	@Override
-	public void eliminar(Persona dato) {
+	public void eliminar(int dato) {
 		raiz = eliminarRec(raiz, dato);
 	}
 	
-    private INodo eliminarRec(INodo nodo, Persona dato) {
+    private INodo eliminarRec(INodo nodo, int dato) {
     	if (nodo == null) return null;
     	
-    	if (dato.getDni() < nodo.getDato().getDni()) {
+    	if (dato < nodo.getDato().getDni()) {
     		nodo.setIzquierdo(eliminarRec(nodo.getIzquierdo(), dato));
-    	} else if (dato.getDni() > nodo.getDato().getDni()){
+    	} else if (dato > nodo.getDato().getDni()){
     		nodo.setDerecho(eliminarRec(nodo.getDerecho(), dato));
     	} else { 
     		//Sin hijos
@@ -70,9 +70,9 @@ public class Arbol implements IArbol{
     		if (nodo.getDerecho() == null) return nodo.getIzquierdo();
     		
     		//2 hijos
-    		INodo sucesorDelImperio = encontrarMinimo(nodo.getDerecho());
-    		nodo.setDato(sucesorDelImperio.getDato());
-            nodo.setDerecho(eliminarRec(nodo.getDerecho(), sucesorDelImperio.getDato()));
+    		INodo sucesor = encontrarMinimo(nodo.getDerecho());
+    		nodo.setDato(sucesor.getDato());
+            nodo.setDerecho(eliminarRec(nodo.getDerecho(), sucesor.getDato().getDni()));
     	}
     	return nodo;
     }
