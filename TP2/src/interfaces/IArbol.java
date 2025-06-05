@@ -1,13 +1,14 @@
 package interfaces;
 
-public interface IArbol {
-	void insertar(IPersona dato);
-	INodo buscar(int dato);
+import java.util.Comparator;
+
+public interface IArbol<T> {
+	void insertar(T dato, Comparator<T> comparador);
+	INodo buscar(T dato, Comparator<T> comparador);
     
 	void recorridoInorder();
 	void recorridoPreorder();
 	void recorridoPostorder();
 	    
-	public void eliminar(int dato);
-
+	public void eliminar(T dato, Comparator<T> comparador);
 }

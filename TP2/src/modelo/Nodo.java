@@ -3,13 +3,13 @@ package modelo;
 import interfaces.INodo;
 import interfaces.IPersona;
 
-public class Nodo implements INodo{
+public class Nodo<T> implements INodo<T>{
 	
-	private IPersona dato;
-	private INodo izquierdo;
-	private INodo derecho;
+	private T dato;
+	private INodo<T> izquierdo;
+	private INodo<T> derecho;
 
-	public Nodo(IPersona dato) {
+	public Nodo(T dato) {
 		super();
 		this.dato = dato;
 		this.izquierdo = null;
@@ -17,35 +17,32 @@ public class Nodo implements INodo{
 	}
 
 	@Override
-	public IPersona getDato() {
+	public T getDato() {
 		return dato;
 	}
 
 	@Override
-	public void setDato(IPersona dato) {
+	public void setDato(T dato) {
 		this.dato = dato;
 	}
 
 	@Override
-	public INodo getIzquierdo() {
+	public INodo<T> getIzquierdo() {
 		return izquierdo;
 	}
 
 	@Override
-	public void setIzquierdo(INodo izquierdo) {
+	public void setIzquierdo(INodo<T> izquierdo) {
 		this.izquierdo = izquierdo;
 	}
 
 	@Override
-	public INodo getDerecho() {
+	public INodo<T> getDerecho() {
 		return derecho;
 	}
 
 	@Override
-	public void setDerecho(INodo derecho) {
+	public void setDerecho(INodo<T> derecho) {
 		this.derecho = derecho;
 	}
-	
-	
-
 }

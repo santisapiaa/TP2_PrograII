@@ -1,11 +1,13 @@
 package modelo;
+import java.util.Comparator;
+
 import interfaces.IArbol;
 import interfaces.INodo;
 import interfaces.IPersona;
 
-public class Arbol implements IArbol{
+public class Arbol<T> implements IArbol<T>{
 	
-	private INodo raiz;
+	private INodo<T> raiz;
 
 	public Arbol() {
 		super();
@@ -13,60 +15,53 @@ public class Arbol implements IArbol{
 	}
 
 	@Override
-	public void insertar(IPersona dato) {
-		raiz = insertarRec(raiz, dato);
+	public void insertar(T dato, Comparator<T> comparador) {
+		raiz = insertarRec(raiz, dato, comparador);
 	}
 	
-	private INodo insertarRec(INodo nodoRaiz, IPersona dato) {
+	private INodo<T> insertarRec(INodo<T> nodoRaiz, T dato, Comparator<T> comparador) {
        if (nodoRaiz == null) {
-    	   return new Nodo(dato);
+    	   return new Nodo<>(dato);
        }
-       
-       if (dato.getDni() < nodoRaiz.getDato().getDni()) { 
-           nodoRaiz.setIzquierdo(insertarRec(nodoRaiz.getIzquierdo(), dato));
+     
+       if (comparador.compare(dato, nodoRaiz.getDato()) < 0) { 
+           nodoRaiz.setIzquierdo(insertarRec(nodoRaiz.getIzquierdo(), dato, comparador));
            
-       } else if (dato.getDni() > nodoRaiz.getDato().getDni()) {
-           nodoRaiz.setDerecho(insertarRec(nodoRaiz.getDerecho(), dato));
+       } else {
+           nodoRaiz.setDerecho(insertarRec(nodoRaiz.getDerecho(), dato, comparador));
        }
        return nodoRaiz;
     }
 
 	@Override
-	public INodo buscar(int dato) {
-		INodo encontrado;
-		encontrado = buscarRec(raiz, dato);
-		System.out.println(encontrado != null ? "DNI encontrado: " + encontrado.getDato(): "El DNI " + dato + " no fue encontrado");
-		return encontrado;
+	public INodo<T> buscar(T dato, Comparator<T> comparador) {
+		return buscarRec(raiz, dato, comparador);
 	}
 	
-	private INodo buscarRec(INodo nodo, int dato) {
-		if (nodo == null || nodo.getDato().getDni() == dato) {
-
+	private INodo<T> buscarRec(INodo<T> nodo, T dato, Comparator<T> comparador) {
+		if (nodo == null || comparador.compare(dato, nodo.getDato()) == 0) {
 			return nodo;
 		}
-		if (dato < nodo.getDato().getDni()) {
-
-			return buscarRec(nodo.getIzquierdo(), dato);
-		} else {
-
-			return buscarRec(nodo.getDerecho(), dato);
-		}
 		
+		if (comparador.compare(dato, nodo.getDato()) < 0) {
+			return buscarRec(nodo.getIzquierdo(), dato, comparador);
+		} else {
+			return buscarRec(nodo.getDerecho(), dato, comparador);
+		}
 	}
-	
 	
 	@Override
-	public void eliminar(int dato) {
-		raiz = eliminarRec(raiz, dato);
+	public void eliminar(T dato, Comparator<T> comparador) {
+		raiz = eliminarRec(raiz, dato, comparador);
 	}
 	
-    private INodo eliminarRec(INodo nodo, int dato) {
+    private INodo<T> eliminarRec(INodo<T> nodo, T dato, Comparator<T> comparador) {
     	if (nodo == null) return null;
     	
-    	if (dato < nodo.getDato().getDni()) {
-    		nodo.setIzquierdo(eliminarRec(nodo.getIzquierdo(), dato));
-    	} else if (dato > nodo.getDato().getDni()){
-    		nodo.setDerecho(eliminarRec(nodo.getDerecho(), dato));
+    	if (comparador.compare(dato, nodo.getDato()) < 0) {
+    		nodo.setIzquierdo(eliminarRec(nodo.getIzquierdo(), dato, comparador));
+    	} else if (comparador.compare(dato, nodo.getDato()) > 0){
+    		nodo.setDerecho(eliminarRec(nodo.getDerecho(), dato, comparador));
     	} else { 
     		//Sin hijos
     		if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) return null;
@@ -76,14 +71,14 @@ public class Arbol implements IArbol{
     		if (nodo.getDerecho() == null) return nodo.getIzquierdo();
     		
     		//2 hijos
-    		INodo sucesor = encontrarMinimo(nodo.getDerecho());
+    		INodo<T> sucesor = encontrarMinimo(nodo.getDerecho());
     		nodo.setDato(sucesor.getDato());
-            nodo.setDerecho(eliminarRec(nodo.getDerecho(), sucesor.getDato().getDni()));
+            nodo.setDerecho(eliminarRec(nodo.getDerecho(), sucesor.getDato(), comparador));
     	}
     	return nodo;
     }
     
-    private INodo encontrarMinimo(INodo nodo) {
+    private INodo<T> encontrarMinimo(INodo<T> nodo) {
     	while (nodo.getIzquierdo() != null) {
     		nodo = nodo.getIzquierdo();
     	}
@@ -95,7 +90,7 @@ public class Arbol implements IArbol{
 		inorderRec(raiz);
 	}
 	
-	private void inorderRec(INodo nodo) {
+	private void inorderRec(INodo<T> nodo) {
 		if (nodo != null) {
 			inorderRec(nodo.getIzquierdo());
             System.out.print(nodo.getDato() + " ");
@@ -108,7 +103,7 @@ public class Arbol implements IArbol{
 		preorderRec(raiz);
 	}
 	
-	private void preorderRec(INodo nodo) {
+	private void preorderRec(INodo<T> nodo) {
 		if (nodo != null) {
             System.out.print(nodo.getDato() + " ");
 			preorderRec(nodo.getIzquierdo());
@@ -121,7 +116,7 @@ public class Arbol implements IArbol{
 		postorderRec(raiz);
 	}
 	
-	private void postorderRec(INodo nodo) {
+	private void postorderRec(INodo<T> nodo) {
 		if (nodo != null) {
 			postorderRec(nodo.getIzquierdo());
             postorderRec(nodo.getDerecho());

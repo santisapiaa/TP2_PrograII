@@ -2,10 +2,9 @@ package interfaces;
 
 public interface IPersona {
 	
-	int getDni();
-	void setDni(int dni);
+	String getDni();
+	void setDni(String dni);
 	
 	String getNombre();
 	void setNombre(String nombre);
-
 }

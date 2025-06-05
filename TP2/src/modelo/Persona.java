@@ -3,21 +3,21 @@ import interfaces.IPersona;
 
 public class Persona implements IPersona {
 	
-	private int dni;
+	private String dni;
 	private String nombre;
 	
-	public Persona(int dni, String nombre) {
+	public Persona(String dni, String nombre) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
-		this.dni = dni;
+	public void setDni(String dni) {
+		dni = dni;
 	}
 
 	public String getNombre() {
@@ -25,14 +25,11 @@ public class Persona implements IPersona {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		nombre = nombre;
 	}
 
 	@Override
 	public String toString() {
 		return "Persona [dni=" + dni + ", nombre=" + nombre + "]";
 	}
-	
-	
-
 }
